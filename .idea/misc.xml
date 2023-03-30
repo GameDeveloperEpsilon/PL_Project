@@ -13,6 +13,16 @@
           <option name="language" value="" />
           <option name="generateVisitor" value="true" />
         </PerGrammarGenerationSettings>
+        <PerGrammarGenerationSettings>
+          <option name="fileName" value="$PROJECT_DIR$/src/JSON.g4" />
+          <option name="autoGen" value="true" />
+          <option name="outputDir" value="C:\Users\Rec\Forge\Java_WS\PL_Project\src" />
+          <option name="libDir" value="C:\Users\Rec\Forge\Java_WS\PL_Project\src" />
+          <option name="encoding" value="" />
+          <option name="pkg" value="gen" />
+          <option name="language" value="" />
+          <option name="generateVisitor" value="true" />
+        </PerGrammarGenerationSettings>
       </list>
     </option>
   </component>

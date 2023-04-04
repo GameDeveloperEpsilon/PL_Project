@@ -1,14 +1,17 @@
 package gen3;
 
-import org.antlr.v4.runtime.tree.TerminalNode;
+import java.util.HashMap;
 
 public class TableMakerVisitor extends JSON3BaseVisitor<String> {
 
+    public HashMap<String, String> table = new HashMap<>();
+
     @Override
     public String visitMember(JSON3Parser.MemberContext ctx) {
-        TerminalNode identifier = ctx.STRING();
-        JSON3Parser.ValueContext value = ctx.value();
-        System.out.println(identifier.getSymbol() + ", " + value);
+        String member = ctx.getText();
+        String key = member.split(":")[0];
+        String value = member.split(":")[1];
+        table.put(key, value);
         return super.visitMember(ctx);
     }
 

@@ -4,36 +4,33 @@ json:
    object | array;
 
 value:
-   string
-   | number
-   | 'true'
+   'true'
    | 'false'
-   | 'null';
+   | 'null'
+   | number
+   | string;
 
 object:
-    '{' WS '}'
+    '{' '}'
     | '{' members '}';
 
 members:
     member (',' member)*;
 
 member:
-    WS string WS ':' element;
+    string ':' element;
 
 array:
-    '[' WS ']' | '[' elements ']';
+    '[' ']' | '[' elements ']';
 
 elements:
-    element (',' element);
+    element (',' element)*;
 
 element:
-    WS value WS;
+    value;
 
 string:
-    '"' characters? '"';
-
-characters:
-    (CHARACTER | ESCAPE);
+    '"' (CHARACTER | ESCAPE)* '"';
 
 CHARACTER:
     ~["\\\u0000-\u001F];
@@ -44,11 +41,11 @@ ESCAPE:
 number:
     '-'? (DIGIT+ | ONENINE DIGIT) ('.' DIGIT+)? (('E' | 'e') ('+' | '-')? DIGIT+)?;
 
-WS:
-    [ \t\r\n] -> skip;
-
 DIGIT:
     [0-9];
 
 ONENINE:
     [1-9];
+
+WS:
+    (' '|'\t'|'\r'|'\n')+ -> skip;

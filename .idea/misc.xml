@@ -23,6 +23,26 @@
           <option name="language" value="" />
           <option name="generateVisitor" value="true" />
         </PerGrammarGenerationSettings>
+        <PerGrammarGenerationSettings>
+          <option name="fileName" value="$PROJECT_DIR$/src/JSON3.g4" />
+          <option name="autoGen" value="true" />
+          <option name="outputDir" value="C:\Users\Rec\Forge\Java_WS\PL_Project\src" />
+          <option name="libDir" value="C:\Users\Rec\Forge\Java_WS\PL_Project\src" />
+          <option name="encoding" value="" />
+          <option name="pkg" value="gen3" />
+          <option name="language" value="" />
+          <option name="generateVisitor" value="true" />
+        </PerGrammarGenerationSettings>
+        <PerGrammarGenerationSettings>
+          <option name="fileName" value="$PROJECT_DIR$/src/JSON2.g4" />
+          <option name="autoGen" value="true" />
+          <option name="outputDir" value="C:\Users\Rec\Forge\Java_WS\PL_Project\src" />
+          <option name="libDir" value="C:\Users\Rec\Forge\Java_WS\PL_Project\src" />
+          <option name="encoding" value="" />
+          <option name="pkg" value="gen2" />
+          <option name="language" value="" />
+          <option name="generateListener" value="false" />
+        </PerGrammarGenerationSettings>
       </list>
     </option>
   </component>

@@ -1,28 +1,48 @@
 grammar JSON2;
 
-json: value;
+json:
+    object;
+    //| array;
 
-value: object | array | STRING | NUMBER | TRUE | FALSE | NULL;
+value:
+    //object
+    //| array
+    //|
+    string
+    | NUMBER
+    | TRUE
+    | FALSE
+    | NULL;
 
-object: '{' WS '}' | '{' members '}';
+object:
+    '{' '}'
+    | '{' members '}';
 
 members: member | member ',' members;
 
-member: STRING WS ':' WS value;
+member: string ':' value;
 
-array: '[' WS ']' | '[' elements ']';
+//array: '[' WS ']' | '[' elements ']';
 
-elements: value | value ',' elements;
+//elements: value | value ',' elements;
 
-STRING: '"' (ESC | ~["\])* '"' ;
+string: '"' characters* '"' ;
 
-ESC: '\' (["\/bfnrt] | UNICODE);
+characters:
+    (CHARACTER | ESCAPE);
+
+CHARACTER:
+    ~["\\\u0000-\u001F];
+
+ESCAPE: '\\' (["\\/bfnrt] | UNICODE);
 
 UNICODE: 'u' HEX HEX HEX HEX;
 
 HEX: DIGIT | [A-Fa-f];
 
 NUMBER: '-'? INT '.' DIGIT+ EXP? | '-'? INT EXP | '-'? INT '.' DIGIT+;
+
+DIGIT: [0-9];
 
 INT: '0' | [1-9] [0-9]*;
 
@@ -34,4 +54,4 @@ FALSE: 'false';
 
 NULL: 'null';
 
-WS: [ \t\n\r]+ -> skip;
+WS: (' '|'\t'|'\r'|'\n'|'\f')+ -> skip;

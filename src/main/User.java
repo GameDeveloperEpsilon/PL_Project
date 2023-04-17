@@ -38,11 +38,13 @@ public class User {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter id: ");
-        int id = scanner.nextInt();
+        int id = Integer.parseInt(scanner.nextLine());
         System.out.print("Enter name: ");
-        String name = scanner.next();
+        String name = scanner.nextLine();
         System.out.print("Enter age: ");
-        int age = scanner.nextInt();
+        int age = Integer.parseInt(scanner.nextLine());
+
+        //scanner.close();
 
         return new User(id, name, age);
     }
@@ -50,6 +52,7 @@ public class User {
     public int id;
     public String name;
     public int age;
+    public String hobby;
 
     public User(int id, String name, int age) {
         this.id = id;

@@ -15,8 +15,6 @@ public class Main {
 
         System.out.println("Starting presentation!\n");
 
-        // Procedure
-
         if (args.length == 0) {
             generateJSON();
             decipherJSON();
@@ -30,21 +28,18 @@ public class Main {
     }
 
     private static void generateJSON() {
-        // Generate JSON File
         User user = createTestUser();
         String jsonString = translateUserToJSON(user);
         saveJSONStringToFile(jsonString);
     }
 
     private static void decipherJSON() {
-        // Decipher JSON File
-        StringBuilder stringBuilder = loadJSONStringFROMFile();
+        StringBuilder stringBuilder = loadJSONStringFromFile();
         User retreivedUser = makeUserFromJSONString(stringBuilder);
         displayUserFields(retreivedUser);
     }
 
     private static User createTestUser() {
-        // User fills out form
         System.out.println("- Creating test User");
         User user = User.makeUserFromUserInput();
         System.out.println(user);
@@ -52,7 +47,6 @@ public class Main {
     }
 
     private static String translateUserToJSON(User user) {
-        // Form is saved to JSON
         System.out.println("- Translating User object to JSON string");
         String jsonString = user.toJSONString();
         System.out.println(jsonString);
@@ -60,7 +54,6 @@ public class Main {
     }
 
     private static void saveJSONStringToFile(String jsonString) {
-        // JSON is saved to a file
         System.out.println("- Saving JSON string to JSON file");
         System.out.println("Enter the name of the file to store the json string.");
         Scanner scanner = new Scanner(System.in);
@@ -72,8 +65,7 @@ public class Main {
         }
     }
 
-    private static StringBuilder loadJSONStringFROMFile() {
-        // File is loaded
+    private static StringBuilder loadJSONStringFromFile() {
         System.out.println("- Loading JSON string from file");
         StringBuilder stringBuilder = new StringBuilder();
         do {
@@ -96,13 +88,11 @@ public class Main {
     }
 
     private static User makeUserFromJSONString(StringBuilder stringBuilder) {
-        // File is parsed
         System.out.println("- Parsing file string");
         return User.makeUserFromJSONString(stringBuilder.toString());
     }
 
     private static void displayUserFields(User retrievedUser) {
-        // Display attributes
         System.out.println("- Displaying User fields");
         System.out.println(retrievedUser);
     }

@@ -1,8 +1,9 @@
-package main;
+package test;
 
 import gen3.JSON3Lexer;
 import gen3.JSON3Parser;
 import gen3.TableMakerVisitor;
+import generator.JSONSerializable;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -10,7 +11,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class User {
+public class User implements JSONSerializable {
 
     public static User makeUserFromJSONString(String jsonString) {
 
@@ -27,7 +28,7 @@ public class User {
 
         final int id = Integer.parseInt(memberMap.get("\"id\""));
         final String raw_name = memberMap.get("\"name\"");
-        final String name = raw_name.substring(1, raw_name.length() - 1);
+        final String name = raw_name.substring(1, raw_name.length() - 1);  // Remove quotes
         final int age = Integer.parseInt(memberMap.get("\"age\""));
 
         return new User(id, name, age);
@@ -44,15 +45,13 @@ public class User {
         System.out.print("Enter age: ");
         int age = Integer.parseInt(scanner.nextLine());
 
-        //scanner.close();
-
         return new User(id, name, age);
     }
 
     public int id;
     public String name;
     public int age;
-    public String hobby;
+    //public String hobby;
 
     public User(int id, String name, int age) {
         this.id = id;
@@ -62,13 +61,14 @@ public class User {
 
     @Override
     public String toString() {
-        return "User: " + id + " " + name + " " + age;
+        return "User: id=" + id + ", name=" + name + ", age=" + age;
     }
 
+    @Override
     public String toJSONString() {
-        final String idMember = String.format("\t\"id\":%d,\n", id);
-        final String nameMember = String.format("\t\"name\":\"%s\",\n", name);
-        final String ageMember = String.format("\t\"age\":%d\n", age);
-        return String.format("{\n%s%s%s}", idMember, nameMember, ageMember);
+        final String idMember = String.format("\"id\":%d", id);
+        final String nameMember = String.format("\"name\":\"%s\"", name);
+        final String ageMember = String.format("\"age\":%d", age);
+        return String.format("{\n\t%s,\n\t%s,\n\t%s\n}", idMember, nameMember, ageMember);
     }
 }

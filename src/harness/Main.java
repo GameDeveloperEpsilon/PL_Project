@@ -1,9 +1,16 @@
-import main.User;
+package harness;
+
+import test.User;
 
 import java.io.*;
 import java.util.Scanner;
 
 public class Main {
+
+    /**
+     * Entry point - dictates execution pattern
+     * @param args -create for generation, -decipher for parsing, and no args for generation and parsing
+     */
     public static void main(String[] args) {
 
         System.out.println("Starting presentation!\n");
@@ -19,47 +26,45 @@ public class Main {
             decipherJSON();
         }
 
-
         System.out.println("\nEnding presentation!");
     }
 
     private static void generateJSON() {
         // Generate JSON File
-        User user = step1();
-        String jsonString = step2(user);
-        step3(jsonString);
+        User user = createTestUser();
+        String jsonString = translateUserToJSON(user);
+        saveJSONStringToFile(jsonString);
     }
 
     private static void decipherJSON() {
         // Decipher JSON File
-        StringBuilder stringBuilder = step4();
-        User retreivedUser = step5(stringBuilder);
-        step6(retreivedUser);
+        StringBuilder stringBuilder = loadJSONStringFROMFile();
+        User retreivedUser = makeUserFromJSONString(stringBuilder);
+        displayUserFields(retreivedUser);
     }
 
-    private static User step1() {
-        // 1 User fills out form
-        System.out.println("1. Filling out form!");
+    private static User createTestUser() {
+        // User fills out form
+        System.out.println("- Creating test User");
         User user = User.makeUserFromUserInput();
         System.out.println(user);
         return user;
     }
 
-    private static String step2(User user) {
-        // 2 Form is saved to JSON
-        System.out.println("2. Translating form object to JSON!");
+    private static String translateUserToJSON(User user) {
+        // Form is saved to JSON
+        System.out.println("- Translating User object to JSON string");
         String jsonString = user.toJSONString();
         System.out.println(jsonString);
         return jsonString;
     }
 
-    private static void step3(String jsonString) {
-        // 3 JSON is saved to a file
-        System.out.println("3. Saving JSON string!");
+    private static void saveJSONStringToFile(String jsonString) {
+        // JSON is saved to a file
+        System.out.println("- Saving JSON string to JSON file");
         System.out.println("Enter the name of the file to store the json string.");
         Scanner scanner = new Scanner(System.in);
-        final String fileName = scanner.next() + ".json";
-        //scanner.close();
+        final String fileName = scanner.nextLine() + ".json";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             writer.write(jsonString);
         } catch (IOException e) {
@@ -67,14 +72,14 @@ public class Main {
         }
     }
 
-    private static StringBuilder step4() {
-        // 4 File is loaded
-        System.out.println("4. Loading file!");
+    private static StringBuilder loadJSONStringFROMFile() {
+        // File is loaded
+        System.out.println("- Loading JSON string from file");
         StringBuilder stringBuilder = new StringBuilder();
         do {
             System.out.println("Enter the name of the file to load the json string.");
             Scanner scanner = new Scanner(System.in);
-            final String fileName = scanner.next() + ".json";
+            final String fileName = scanner.nextLine() + ".json";
             try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
                 while (reader.ready()) {
                     String line = reader.readLine();
@@ -90,15 +95,15 @@ public class Main {
         return stringBuilder;
     }
 
-    private static User step5(StringBuilder stringBuilder) {
-        // 5 File is parsed
-        System.out.println("5. Parsing file string!");
+    private static User makeUserFromJSONString(StringBuilder stringBuilder) {
+        // File is parsed
+        System.out.println("- Parsing file string");
         return User.makeUserFromJSONString(stringBuilder.toString());
     }
 
-    private static void step6(User retrievedUser) {
-        // 6 Display attributes
-        System.out.println("6. Displaying attributes!");
+    private static void displayUserFields(User retrievedUser) {
+        // Display attributes
+        System.out.println("- Displaying User fields");
         System.out.println(retrievedUser);
     }
 }
